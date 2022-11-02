@@ -17,10 +17,17 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
+      <property name="font">
+       <font>
+        <family>Nunito SemiBold</family>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="page">
+      <widget class="QWidget" name="page_1_add_data">
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <layout class="QVBoxLayout" name="verticalLayout">
@@ -35,13 +42,18 @@
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>8</height>
+              <height>15</height>
              </size>
             </property>
            </spacer>
           </item>
           <item>
            <widget class="QTableWidget" name="tableWidget">
+            <property name="font">
+             <font>
+              <family>Nunito Medium</family>
+             </font>
+            </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(255, 255, 255);</string>
             </property>
@@ -51,16 +63,24 @@
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
              <widget class="QPushButton" name="pushButton_3">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="maximumSize">
                <size>
-                <width>450</width>
+                <width>300</width>
                 <height>30</height>
                </size>
               </property>
               <property name="font">
                <font>
-                <family>Nokia Sans S60</family>
+                <family>Nunito SemiBold</family>
                 <pointsize>8</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
                </font>
               </property>
               <property name="cursor">
@@ -68,16 +88,42 @@
               </property>
               <property name="styleSheet">
                <string notr="true">color: rgb(243, 243, 243);
-background-color: rgb(153, 102, 204);
+background-color: transparent;
 border-color: rgb(0,0,0);
 border-radius: 8px; 
 alternate-background-color: rgb(0, 136, 0);
 selection-background-color: rgb(0, 136, 0);</string>
               </property>
               <property name="text">
-               <string>   Добавить в каталог    </string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>add.png</normaloff>add.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>48</width>
+                <height>28</height>
+               </size>
               </property>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>3</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item>
              <widget class="QPushButton" name="pushButton">
@@ -89,17 +135,37 @@ selection-background-color: rgb(0, 136, 0);</string>
               </property>
               <property name="font">
                <font>
-                <family>Nokia Sans S60</family>
+                <family>Nunito SemiBold</family>
+                <pointsize>8</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
                </font>
               </property>
               <property name="styleSheet">
                <string notr="true">color: rgb(243, 243, 243);
-background-color: rgb(153, 102, 204);
+background-color: transparent;
 border-radius: 8px;
 </string>
               </property>
               <property name="text">
-               <string>  Добавить жанр  </string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>delete.png</normaloff>delete.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>48</width>
+                <height>30</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="Line" name="line">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
               </property>
              </widget>
             </item>
@@ -113,17 +179,30 @@ border-radius: 8px;
               </property>
               <property name="font">
                <font>
-                <family>Nokia Sans S60</family>
+                <family>Nunito SemiBold</family>
+                <pointsize>8</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
                </font>
               </property>
               <property name="styleSheet">
                <string notr="true">color: rgb(243, 243, 243);
-background-color: rgb(153, 102, 204);
+background-color: transparent;
 border-radius: 8px;
 </string>
               </property>
               <property name="text">
-               <string>   Добавить Издателя  </string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>save.png</normaloff>save.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>48</width>
+                <height>26</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -155,7 +234,7 @@ border-radius: 8px;
               <property name="font">
                <font>
                 <family>Nunito SemiBold</family>
-                <pointsize>7</pointsize>
+                <pointsize>8</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -174,7 +253,7 @@ border-radius: 8px;
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_2">
+      <widget class="QWidget" name="page_2_list_debtors">
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -189,44 +268,79 @@ border-radius: 8px;
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>8</height>
+              <height>15</height>
              </size>
             </property>
            </spacer>
           </item>
           <item>
-           <widget class="QTableWidget" name="tableWidget_2"/>
+           <widget class="QTableWidget" name="tableWidget_2">
+            <property name="font">
+             <font>
+              <family>Nunito Medium</family>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QPushButton" name="pushButton_6">
+              <property name="text">
+               <string>PushButton</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_5">
+              <property name="text">
+               <string>PushButton</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap>milly_fox.png</pixmap>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>@MillyFox's CD Shop</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="page_3">
-       <layout class="QVBoxLayout" name="verticalLayout_6">
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>8</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QTableWidget" name="tableWidget_3"/>
-          </item>
-         </layout>
-        </item>
-       </layout>
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_6"/>
       </widget>
      </widget>
     </item>
