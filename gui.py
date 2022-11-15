@@ -13,7 +13,6 @@ from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QMessageBox
 
 
-
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()

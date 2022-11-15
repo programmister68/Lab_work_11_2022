@@ -11,166 +11,77 @@ class Database:
             database='cd_catalog',  # База данных "каталог компакт-дисков".
         )
 
-    def selectCurrencies(self):
+    def selectCDs(self):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM Currencies")
+        cursor.execute("SELECT * FROM CDs")
         currencies = cursor.fetchall()
         cursor.close()
         return currencies
 
-    def selectPositions(self):
+    def selectDebtors(self):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM Positions")
+        cursor.execute("SELECT * FROM Debtors")
         positions = cursor.fetchall()
         cursor.close()
         return positions
 
-    def selectEmployees(self):
-        cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM Employees")
-        employees = cursor.fetchall()
-        cursor.close()
-        return employees
-
-    def selectDepositors(self):
-        cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM Depositors")
-        depositors = cursor.fetchall()
-        cursor.close()
-        return depositors
-
-    def selectDeposits(self):
-        cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM Deposits")
-        deposits = cursor.fetchall()
-        cursor.close()
-        return deposits
-
-    def insertCurrencies(self, curr_name, exchange_rate):
+    def insertCDs(self, cd_name, cd_description, genre, publisher):
         cursor = self.connection.cursor()
         cursor.execute(
-            f"INSERT INTO Currencies"
-            f"(`Curr_Name`, `Exchange_Rate`)"
-            f"VALUES ('{curr_name}', {exchange_rate})"
+            f"INSERT INTO CDs"
+            f"(`CD_Name`, `CD_Description`, `Genre`, `Publisher`)"
+            f"VALUES ('{cd_name}', '{cd_description}', '{genre}', '{publisher}')"
         )
         self.connection.commit()
         cursor.close()
 
-    def insertPositions(self, pos_name, salary, responsibility, requirement):
+    def insertDebtors(self, debtor_name, date, cd_id):
         cursor = self.connection.cursor()
         cursor.execute(
-            f"INSERT INTO Positions"
-            f"(`Pos_Name`, `Salary`, `Responsibility`, `Requirement`)"
-            f"VALUES ('{pos_name}', {salary}, '{responsibility}', '{requirement}')"
+            f"INSERT INTO Debtors"
+            f"(`Debtor_Name`, `Debtor_Date`, `CD_ID`)"
+            f"VALUES ('{debtor_name}', {date}, {cd_id})"
         )
         self.connection.commit()
         cursor.close()
 
-    def insertEmployees(self, emp_name, login, password, role, emp_phone, emp_passport, pos_id):
+    def deleteCDs(self, id):
+        cursor = self.connection.cursor()
+        cursor.execute(f"DELETE FROM CDs WHERE `CD_ID`={id}")
+        cursor.execute(f"SELECT COUNT (Debtor_ID) FROM Debtors WHERE `CD_ID`={id}")
+        records = cursor.fetchall()
+        for i in range(records[0][0][0][0]):
+            self.deleteDebtors_cd(id)
+        self.connection.commit()
+        cursor.close()
+
+    def deleteDebtors_cd(self, id):
+        cursor = self.connection.cursor()
+        cursor.execute(f"DELETE FROM Debtors WHERE `CD_ID`={id}")
+        self.connection.commit()
+        cursor.close()
+
+    def deleteDebtors(self, id):
+        cursor = self.connection.cursor()
+        cursor.execute(f"DELETE FROM Debtors WHERE `Debtor_ID`={id}")
+        self.connection.commit()
+        cursor.close()
+
+    def updateCDs(self, cd_name, cd_description, genre, publisher):
         cursor = self.connection.cursor()
         cursor.execute(
-            f"INSERT INTO Employees"
-            f"(`Emp_Name`, `Login`, `Password`, `Role`, `Emp_Phone`, `Emp_Passport`, `Position_ID`)"
-            f"VALUES ('{emp_name}', '{login}', '{password}', '{role}', '{emp_phone}', '{emp_passport}', {pos_id})"
-        )
+            f"UPDATE CDs set `CD_Name`='{cd_name}', `CD_Description`='{cd_description}', `Genre`='{genre}', `Publisher`='{publisher}' WHERE `CD_ID`={id}")
         self.connection.commit()
         cursor.close()
 
-    def insertDepositors(self, depositor_name, depositor_phone, depositor_passport, dep_sum, ref_sum, dep_date, ref_date, ref_status, emp_id):
+    # , `Emp_Phone` = '{emp_phone}', `Emp_Passport` = '{emp_passport}', `Position_ID` = {pos_id}
+
+    def updateDebtors(self, debtor_name, date, cd_id):
         cursor = self.connection.cursor()
         cursor.execute(
-            f"INSERT INTO Depositors"
-            f"(`Depositor_Name`, `Depositor_Phone`, `Depositor_Passport`, `Dep_Sum`, `Refund_Sum`, `Dep_Date`, `Refund_Date`, `Refund_Status`, `Employee_ID`)"
-            f"VALUES ('{depositor_name}', '{depositor_phone}', '{depositor_passport}', {dep_sum}, {ref_sum}, '{dep_date}', '{ref_date}', '{ref_status}', {emp_id})"
-        )
+            f"UPDATE Debtors set `Debtor_Name`='{debtor_name}', `Debtor_Date`={date}, `CD_ID`={cd_id} WHERE `Debtor_ID`={id}")
         self.connection.commit()
         cursor.close()
-
-    def insertDeposits(self, dep_name, percent_rate, curr_id, depositor_id):
-        cursor = self.connection.cursor()
-        cursor.execute(
-            f"INSERT INTO Deposits"
-            f"(`Dep_Name`, `Percent_Rate`, `Currency_ID`, `Depositor_ID`)"
-            f"VALUES ('{dep_name}', {percent_rate}, {curr_id}, {depositor_id})"
-        )
-        self.connection.commit()
-        cursor.close()
-
-    def deleteCurrencies(self, id):
-        cursor = self.connection.cursor()
-        cursor.execute(f"DELETE FROM Currencies WHERE `Currency_ID`={id}")
-        self.connection.commit()
-        cursor.close()
-
-    def deletePositions(self, id):
-        cursor = self.connection.cursor()
-        cursor.execute(f"DELETE FROM Positions WHERE `Position_ID`={id}")
-        self.connection.commit()
-        cursor.close()
-
-    def deleteEmployees(self, id):
-        cursor = self.connection.cursor()
-        cursor.execute(f"DELETE FROM Employees WHERE `Employee_ID`={id}")
-        self.connection.commit()
-        cursor.close()
-
-    def deleteDepositors(self, id):
-        cursor = self.connection.cursor()
-        cursor.execute(f"DELETE FROM Depositors WHERE `Depositor_ID`={id}")
-        self.connection.commit()
-        cursor.close()
-
-    def deleteDeposits(self, id):
-        cursor = self.connection.cursor()
-        cursor.execute(f"DELETE FROM Deposits WHERE `Deposit_ID`={id}")
-        self.connection.commit()
-        cursor.close()
-
-    def updateEmployees(self, id, emp_name, login, password, role, emp_phone, emp_passport, pos_id):
-        cursor = self.connection.cursor()
-        cursor.execute(
-            f"UPDATE Employees set `Emp_Name`='{emp_name}', `Login`='{login}', `Password`='{password}', `Role`='{role}', `Emp_Phone`='{emp_phone}', `Emp_Passport`='{emp_passport}', `Position_ID`={pos_id} WHERE `Employee_ID`={id}")
-        self.connection.commit()
-        cursor.close()
-
-    def updateDeposits(self, id, dep_name, percent_rate, curr_id, depositor_id):
-        cursor = self.connection.cursor()
-        cursor.execute(
-            f"UPDATE Deposits set `Dep_Name`='{dep_name}', `Percent_Rate`={percent_rate}, `Currency_ID`={curr_id}, `Depositor_ID`={depositor_id} WHERE `Deposit_ID`={id}")
-        self.connection.commit()
-        cursor.close()
-
-    def updatePositions(self, id, pos_name, salary, responsibility, requirement):
-        cursor = self.connection.cursor()
-        cursor.execute(
-            f"UPDATE Positions set `Pos_Name`='{pos_name}', `Salary`={salary}, `Responsibility`='{responsibility}', `Requirement`='{requirement}' WHERE `Position_ID`={id}")
-        self.connection.commit()
-        cursor.close()
-
-    def updateCurrencies(self, id, curr_name, ex_rate):
-        cursor = self.connection.cursor()
-        cursor.execute(
-            f"UPDATE Currencies set `Curr_Name`='{curr_name}', `Exchange_Rate`={ex_rate} WHERE `Currency_ID`={id}")
-        self.connection.commit()
-        cursor.close()
-
-    def updateDepositors(self, id, depositor_name, depositor_phone, depositor_passport, dep_sum, ref_sum, dep_date, ref_date, ref_status, emp_id):
-        cursor = self.connection.cursor()
-        cursor.execute(
-            f"UPDATE Depositors set `Depositor_Name`='{depositor_name}', `Depositor_Phone`='{depositor_phone}', `Depositor_Passport`='{depositor_passport}', `Dep_Sum`={dep_sum}, `Refund_Sum`={ref_sum}, `Dep_Date`='{dep_date}', `Refund_Date`='{ref_date}', `Refund_Status`='{ref_status}', `Employee_ID`={emp_id} WHERE `Depositor_ID`={id}")
-        self.connection.commit()
-        cursor.close()
-
-    def get_pas(self, log):
-        cur = self.connection.cursor()
-        try:
-            cur.execute(f"""SELECT Employee_ID, Password, Role FROM Employees WHERE Login='{log}'""")
-            rec = cur.fetchall()[0]
-            cur.close()
-            return rec[0], rec[1], rec[2]
-        except Exception:
-            cur.close()
-            return '', '', ''
 
 
 if __name__ == '__main__':
